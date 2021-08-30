@@ -1,0 +1,105 @@
+{
+	"name": "qalc",
+	"displayName": "Qalc",
+	"description": "Easily evaluate mathematic expressions with physical quantities and more using libqalculate",
+	"version": "2021.8.30",
+	"publisher": "TheaFlowers",
+	"icon": "images/qalculate-vscode.png",
+	"engines": {
+		"vscode": "^1.59.0"
+	},
+	"categories": [
+		"Education",
+		"Other"
+	],
+	"keywords": [
+		"calculator",
+		"algebra",
+		"engineering",
+		"utility"
+	],
+	"license": "SEE LICENSE IN LICENSE",
+	"homepage": "https://github.com/theacodes/vscode-qalc/blob/main/README.md",
+	"bugs": {
+		"url": "https://github.com/theacodes/vscode-qalc/issues"
+	},
+	"badges": [
+		{
+			"url": "https://flat.badgen.net/badge/sponsor/%E2%9D%A4/purple?icon=github",
+			"href": "https://github.com/sponsors/theacodes",
+			"description": "Sponsor me on GitHub!"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/theacodes/vscode-qalc.git"
+	},
+	"qna": false,
+	"activationEvents": [
+		"onCommand:qalc.eval",
+		"onCommand:qalc.evalAndReplace"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "qalc.eval",
+				"title": "qalc: calculate current line or selection",
+				"when": "editorTextFocus && !editorHasMultipleSelections"
+			},
+			{
+				"command": "qalc.evalAndReplace",
+				"title": "qalc: calculate current line or selection and replace it with the results",
+				"when": "editorTextFocus && !editorHasMultipleSelections && !editorReadonly"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "qalc.evalAndReplace",
+				"key": "ctrl+shift+/",
+				"mac": "cmd+shift+/",
+				"when": "editorTextFocus"
+			}
+		],
+		"configuration": {
+			"title": "Qalc",
+			"properties": {
+				"qalc.path": {
+					"type": "string",
+					"default": "",
+					"markdownDescription": "The full filesystem path to the `qalc` command. Usually this is on your `PATH` so the extension can find it automatically, but, if for some reason it's not you can manually specify the path here."
+				},
+				"qalc.settings": {
+					"type": "array",
+					"uniqueItems": true,
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "A list of settings for qalc. Each one of these is passed to qalc using the `--set` flag. For example, adding `base 16` would be the same as running `set base 16` in `qalc`'s interactive mode. The qalc man page has a [full list of settings](https://qalculate.github.io/manual/qalc.html#SETTINGS)."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.59.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"eslint": "^7.27.0",
+		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/parser": "^4.26.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.3.2",
+		"vscode-test": "^1.5.2"
+	}
+}
